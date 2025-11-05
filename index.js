@@ -5,6 +5,7 @@ import cors from 'cors';
 
 // routes
 import categoryRoutes from './src/routes/categoryRoutes.js';
+import techRoutes from './src/routes/techRoutes.js';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 
 // routes
 app.use('/api/categories', categoryRoutes);
+app.use('/api/techs', techRoutes);
 
 // 404
 app.use((req, res) => {
