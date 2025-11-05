@@ -1,8 +1,16 @@
 import { body, validationResult } from 'express-validator';
+import cloudinary from '../config/cloudinary.js';
 
-export const handleValidationErrors = ( req, res, next) => {
+export const handleValidationErrors = async ( req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        if(req.file && req.file.path) {
+            try {
+                await cloudinary.uploader.destroy(req.file.filename);
+            } catch (error) {
+                console.error("Gagal menghapus file di Cloudinary:", error.message);   
+            }
+        }
         return res.status(400).json({
             errors: errors.array().map(err => ({
                 field: err.param,
@@ -19,7 +27,7 @@ export const validateCategory = [
         .isLength({ min: 2 }).withMessage('Nama kategori harus terdiri dari minimal 2 karakter').bail()
 ];
 
-export const validationTech = [
+export const validateTech = [
     body('icon')
         .notEmpty().withMessage('Icon teknologi harus diisi').bail()
         .isLength({ min: 2 }).withMessage('Icon teknologi harus terdiri dari minimal 2 karakter').bail()
@@ -70,9 +78,9 @@ export const validateBlog = [
     body('title')
         .notEmpty().withMessage('Judul blog harus diisi').bail()
         .isLength({ min: 2 }).withMessage('Judul blog harus terdiri dari minimal 2 karakter').bail(),
-    body('imageUrl')
+    body('image')
         .optional()
-        .isURL().withMessage('URL gambar blog harus berupa URL yang valid').bail(),
+        .matches(/\.(jpg|jpeg|png)$/i).withMessage('Gambar harus berupa file dengan ekstensi jpg, jpeg, atau png').bail(),
     body('content')
         .notEmpty().withMessage('Konten blog harus diisi').bail()
         .isLength({ min: 10 }).withMessage('Konten blog harus terdiri dari minimal 10 karakter').bail(),
