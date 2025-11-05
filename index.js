@@ -3,19 +3,33 @@ import dotenv from 'dotenv';
 import connectDB from './src/config/db.js';
 import cors from 'cors';
 
+// routes
+import categoryRoutes from './src/routes/categoryRoutes.js';
+
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(cors());
+app.use(express.json());
+
+
 app.get('/', (req, res) => {
-    res.send('API is running...');
+    res.send('API sedang berjalan...');
+});
+
+// routes
+app.use('/api/categories', categoryRoutes);
+
+// 404
+app.use((req, res) => {
+    res.status(404).json({
+        message: `Tidak ditemukan ${req.originalUrl} di server ini`
+    });
 });
 
 connectDB().then(() => {
-    app.use(cors());
-    app.use(express.json());
-
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
     });

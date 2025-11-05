@@ -25,7 +25,7 @@ export const validationTech = [
         .isLength({ min: 2 }).withMessage('Icon teknologi harus terdiri dari minimal 2 karakter').bail()
 ];
 
-export const validationExperience = [
+export const validateExperience = [
     body('title')
         .notEmpty().withMessage('Judul pengalaman harus diisi').bail()
         .isLength({ min: 2 }).withMessage('Judul pengalaman harus terdiri dari minimal 2 karakter').bail(),
@@ -51,7 +51,7 @@ export const validationExperience = [
         .isLength({ min: 2 }).withMessage('Icon pengalaman harus terdiri dari minimal 2 karakter').bail()
 ];
 
-export const validationCertificate = [
+export const validateCertificate = [
     body('imageUrl')
         .notEmpty().withMessage('URL gambar sertifikat harus diisi').bail()
         .isURL().withMessage('URL gambar sertifikat harus berupa URL yang valid').bail(),
@@ -66,7 +66,7 @@ export const validationCertificate = [
         .isURL().withMessage('Link sertifikat harus berupa URL yang valid').bail()
 ];
 
-export const validationBlog = [
+export const validateBlog = [
     body('title')
         .notEmpty().withMessage('Judul blog harus diisi').bail()
         .isLength({ min: 2 }).withMessage('Judul blog harus terdiri dari minimal 2 karakter').bail(),
@@ -80,4 +80,5 @@ export const validationBlog = [
         .notEmpty().withMessage('Kategori blog harus diisi').bail()
         .isMongoId().withMessage('Kategori blog harus berupa ID MongoDB yang valid').bail()
 ];
+
 

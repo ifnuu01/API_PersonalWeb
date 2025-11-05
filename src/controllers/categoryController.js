@@ -12,7 +12,7 @@ export const createCategory = asyncHandler( async (req, res) => {
 });
 
 export const getAllCategories = asyncHandler( async (req, res) => {
-    const categories = await Category.findAll();
+    const categories = await Category.find();
 
     res.status(200).json({
         message: 'Berhasil mendapatkan semua kategori',
