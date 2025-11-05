@@ -18,6 +18,8 @@ const blogSchema = new mongoose.Schema({
         ref: 'Category',
         required: true
     }
+}, {
+    timestamps: true
 });
 
 const Blog = mongoose.model('Blog', blogSchema);
