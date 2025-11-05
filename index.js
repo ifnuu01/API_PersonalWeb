@@ -4,8 +4,8 @@ import connectDB from './src/config/db.js';
 import cors from 'cors';
 
 // routes
-import categoryRoutes from './src/routes/categoryRoutes.js';
-import techRoutes from './src/routes/techRoutes.js';
+import categoryRoute from './src/routes/categoryRoute.js';
+import techRoute from './src/routes/techRoute.js';
 
 dotenv.config();
 
@@ -21,8 +21,8 @@ app.get('/', (req, res) => {
 });
 
 // routes
-app.use('/api/categories', categoryRoutes);
-app.use('/api/techs', techRoutes);
+app.use('/api/categories', categoryRoute);
+app.use('/api/techs', techRoute);
 
 // 404
 app.use((req, res) => {
