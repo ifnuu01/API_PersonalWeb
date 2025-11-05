@@ -6,6 +6,7 @@ import cors from 'cors';
 // routes
 import categoryRoute from './src/routes/categoryRoute.js';
 import techRoute from './src/routes/techRoute.js';
+import experienceRoute from './src/routes/experienceRoute.js';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 // routes
 app.use('/api/categories', categoryRoute);
 app.use('/api/techs', techRoute);
+app.use('/api/experiences', experienceRoute);
 
 // 404
 app.use((req, res) => {
