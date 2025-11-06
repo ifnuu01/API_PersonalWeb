@@ -9,13 +9,15 @@ import techRoute from './src/routes/techRoute.js';
 import experienceRoute from './src/routes/experienceRoute.js';
 import blogRoute from './src/routes/blogRoute.js';
 
+
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.urlencoded({ extended: true, }));
+app.use(express.json({ extended: true, }));
 
 
 app.get('/', (req, res) => {

@@ -13,7 +13,7 @@ export const handleValidationErrors = async ( req, res, next) => {
         }
         return res.status(400).json({
             errors: errors.array().map(err => ({
-                field: err.param,
+                field: err.path,
                 message: err.msg
             }))
         });
