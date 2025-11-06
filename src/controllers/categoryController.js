@@ -1,5 +1,5 @@
 import Category from '../models/Category.js';
-import { asyncHandler, AppError} from '../middlewares/errorHandler.js';
+import { asyncHandler, AppError} from '../utils/errorHandler.js';
 
 export const createCategory = asyncHandler( async (req, res) => {
     const { name } = req.body;

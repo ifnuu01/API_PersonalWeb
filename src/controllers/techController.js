@@ -1,5 +1,5 @@
 import Tech from '../models/Tech.js';
-import { asyncHandler, AppError} from '../middlewares/errorHandler.js';
+import { asyncHandler, AppError} from '../utils/errorHandler.js';
 
 export const createTech = asyncHandler( async (req, res) => {
     const { icon } = req.body;

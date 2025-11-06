@@ -1,5 +1,5 @@
 import Blog from '../models/Blog.js';
-import { asyncHandler, AppError} from '../middlewares/errorHandler.js';
+import { asyncHandler, AppError} from '../utils/errorHandler.js';
 import Category from '../models/Category.js';
 
 export const createBlog = asyncHandler( async(req, res) => {

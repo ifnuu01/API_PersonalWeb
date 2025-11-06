@@ -1,5 +1,5 @@
 import Experience from '../models/Experience.js';
-import { asyncHandler, AppError} from '../middlewares/errorHandler.js';
+import { asyncHandler, AppError} from '../utils/errorHandler.js';
 
 export const createExperience = asyncHandler( async ( req, res) => {
     const { title, company, startDate, endDate, description, icon } = req.body;
