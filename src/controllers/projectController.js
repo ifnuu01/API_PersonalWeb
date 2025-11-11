@@ -66,11 +66,13 @@ export const updateProject = asyncHandler( async(req, res) => {
             throw new AppError(400, 'Kategori tidak ditemukan');
         }
     }
-    let imageSrc = project.imageSrc;
     if (req.file && req.file.path) {
-        imageSrc = req.file.path;
+        if (project.imageSrc) {
+            const oldPublicId = project.imageSrc.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`personal-web/${oldPublicId}`);
+        }
+        project.imageSrc = req.file.path;
     }
-    project.imageSrc = imageSrc;
     project.title = title || project.title;
     project.description = description || project.description;
     project.linkIcon = linkIcon || project.linkIcon;
@@ -90,6 +92,10 @@ export const deleteProject = asyncHandler( async(req, res) => {
     const project = await Project.findById(id);
     if (!project) {
         throw new AppError(404, 'Project tidak ditemukan');
+    }
+    if (project.imageSrc) {
+        const oldPublicId = project.imageSrc.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(`personal-web/${oldPublicId}`);
     }
     await project.remove();
 
