@@ -60,7 +60,7 @@ export const validateExperience = [
 ];
 
 export const validateCertificate = [
-    body('imageUrl')
+    body('image')
         .notEmpty().withMessage('URL gambar sertifikat harus diisi').bail()
         .isURL().withMessage('URL gambar sertifikat harus berupa URL yang valid').bail(),
     body('title')
@@ -90,7 +90,7 @@ export const validateBlog = [
 ];
 
 export const validateProject = [
-    body('imageSrc')
+    body('image')
         .optional()
         .matches(/\.(jpg|jpeg|png)$/i).withMessage('Gambar harus berupa file dengan ekstensi jpg, jpeg, atau png').bail(),
     body('title')

@@ -8,7 +8,7 @@ import categoryRoute from './src/routes/categoryRoute.js';
 import techRoute from './src/routes/techRoute.js';
 import experienceRoute from './src/routes/experienceRoute.js';
 import blogRoute from './src/routes/blogRoute.js';
-
+import projectRoute from './src/routes/projectRoute.js';
 
 dotenv.config();
 
@@ -29,6 +29,7 @@ app.use('/api/categories', categoryRoute);
 app.use('/api/techs', techRoute);
 app.use('/api/experiences', experienceRoute);
 app.use('/api/blogs', blogRoute);
+app.use('/api/projects', projectRoute);
 
 // 404
 app.use((req, res) => {
