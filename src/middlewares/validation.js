@@ -89,4 +89,31 @@ export const validateBlog = [
         .isMongoId().withMessage('Kategori blog harus berupa ID MongoDB yang valid').bail()
 ];
 
-
+export const validateProject = [
+    body('imageSrc')
+        .optional()
+        .matches(/\.(jpg|jpeg|png)$/i).withMessage('Gambar harus berupa file dengan ekstensi jpg, jpeg, atau png').bail(),
+    body('title')
+        .notEmpty().withMessage('Judul proyek harus diisi').bail()
+        .isLength({ min: 2 }).withMessage('Judul proyek harus terdiri dari minimal 2 karakter').bail(),
+    body('description')
+        .notEmpty().withMessage('Deskripsi proyek harus diisi').bail()
+        .isLength({ min: 10 }).withMessage('Deskripsi proyek harus terdiri dari minimal 10 karakter').bail(),
+    body('linkIcon')
+        .notEmpty().withMessage('Icon link proyek harus diisi').bail()
+        .isLength({ min: 2 }).withMessage('Icon link proyek harus terdiri dari minimal 2 karakter').bail(),
+    body('linkUrl')
+        .notEmpty().withMessage('URL link proyek harus diisi').bail()
+        .isURL().withMessage('URL link proyek harus berupa URL yang valid').bail(),
+    body('category')
+        .notEmpty().withMessage('Kategori proyek harus diisi').bail()
+        .isMongoId().withMessage('Kategori proyek harus berupa ID MongoDB yang valid').bail(),
+    body('techIcons')
+        .isArray({ min: 1 }).withMessage('Setidaknya harus ada satu icon teknologi').bail(),
+    body('techIcons.*.src')
+        .notEmpty().withMessage('Src icon teknologi harus diisi').bail()
+        .isLength({ min: 2 }).withMessage('Src icon teknologi harus terdiri dari minimal 2 karakter').bail(),
+    body('techIcons.*.alt')
+        .notEmpty().withMessage('Alt icon teknologi harus diisi').bail()
+        .isLength({ min: 2 }).withMessage('Alt icon teknologi harus terdiri dari minimal 2 karakter').bail()
+];
