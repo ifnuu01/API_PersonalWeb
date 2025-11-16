@@ -4,7 +4,7 @@ export const asyncHandler = (fn) => {
     };
 };
 
-export const errorHandler = (err, res) => {
+export const errorHandler = (err, req, res, next) => {
     console.log(err);
     if(err.statusCode) 
     {
@@ -14,7 +14,7 @@ export const errorHandler = (err, res) => {
 };
 
 export class AppError extends Error {
-    constructor(message, statusCode) {
+    constructor(statusCode, message) {
         super(message);
         this.statusCode = statusCode;
         this.name = this.constructor.name;

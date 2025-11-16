@@ -42,14 +42,15 @@ export const validateExperience = [
         .isLength({ min: 2 }).withMessage('Nama perusahaan harus terdiri dari minimal 2 karakter').bail(),
     body('startDate')
         .notEmpty().withMessage('Tanggal mulai harus diisi').bail()
-        .isDate().withMessage('Tanggal mulai harus berupa tanggal yang valid').bail(),
+        .isDate({ format: 'YYYY-MM-DD' }).withMessage('Tanggal mulai harus berupa tanggal yang valid').bail(),
     body('endDate')
-        .optional()
-        .isDate().withMessage('Tanggal selesai harus berupa tanggal yang valid').bail()
+        .optional({ nullable: true, checkFalsy: true })
+        .isDate({ format: 'YYYY-MM-DD' }).withMessage('Tanggal selesai harus berupa tanggal yang valid').bail()
         .custom((value, { req}) => {
             if (value && new Date(value) < new Date(req.body.startDate)) {
                 throw new Error('Tanggal selesai tidak boleh lebih awal dari tanggal mulai');
             }
+            return true;
         }).bail(),
     body('description')
         .notEmpty().withMessage('Deskripsi pengalaman harus diisi').bail()
@@ -60,18 +61,12 @@ export const validateExperience = [
 ];
 
 export const validateCertificate = [
-    body('image')
-        .notEmpty().withMessage('URL gambar sertifikat harus diisi').bail()
-        .isURL().withMessage('URL gambar sertifikat harus berupa URL yang valid').bail(),
     body('title')
         .notEmpty().withMessage('Judul sertifikat harus diisi').bail()
         .isLength({ min: 2 }).withMessage('Judul sertifikat harus terdiri dari minimal 2 karakter').bail(),
     body('description')
         .notEmpty().withMessage('Deskripsi sertifikat harus diisi').bail()
         .isLength({ min: 10 }).withMessage('Deskripsi sertifikat harus terdiri dari minimal 10 karakter').bail(),
-    body('link')
-        .optional()
-        .isURL().withMessage('Link sertifikat harus berupa URL yang valid').bail()
 ];
 
 export const validateBlog = [
@@ -90,9 +85,6 @@ export const validateBlog = [
 ];
 
 export const validateProject = [
-    body('image')
-        .optional()
-        .matches(/\.(jpg|jpeg|png)$/i).withMessage('Gambar harus berupa file dengan ekstensi jpg, jpeg, atau png').bail(),
     body('title')
         .notEmpty().withMessage('Judul proyek harus diisi').bail()
         .isLength({ min: 2 }).withMessage('Judul proyek harus terdiri dari minimal 2 karakter').bail(),
@@ -116,4 +108,13 @@ export const validateProject = [
     body('techIcons.*.alt')
         .notEmpty().withMessage('Alt icon teknologi harus diisi').bail()
         .isLength({ min: 2 }).withMessage('Alt icon teknologi harus terdiri dari minimal 2 karakter').bail()
+];
+
+export const validateLogin = [
+    body('username')
+        .notEmpty().withMessage('Username harus diisi').bail()
+        .isLength({ min: 3 }).withMessage('Username harus terdiri dari minimal 3 karakter').bail(),
+    body('password')
+        .notEmpty().withMessage('Password harus diisi').bail()
+        .isLength({ min: 6 }).withMessage('Password harus terdiri dari minimal 6 karakter').bail()
 ];
