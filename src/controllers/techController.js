@@ -55,7 +55,7 @@ export const deleteTech = asyncHandler( async (req, res) => {
     if (!tech) {
         throw new AppError(404, 'Tech tidak ditemukan');
     }
-    await tech.remove();
+    await tech.deleteOne();
 
     res.status(200).json({
         message: 'Berhasil menghapus tech',

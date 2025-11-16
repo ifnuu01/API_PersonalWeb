@@ -56,7 +56,7 @@ export const deleteCategory = asyncHandler( async (req, res) => {
     if (!category) {
         throw new AppError(404, 'Kategori tidak ditemukan');
     }
-    await category.destroy();
+    await category.deleteOne();
 
     res.status(200).json({
         message: 'Berhasil menghapus kategori'

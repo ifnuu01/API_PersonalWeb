@@ -1,6 +1,7 @@
 import Blog from '../models/Blog.js';
 import { asyncHandler, AppError} from '../utils/errorHandler.js';
 import Category from '../models/Category.js';
+import cloudinary from '../config/cloudinary.js';
 
 export const createBlog = asyncHandler( async(req, res) => {
     const { title, content, category } = req.body;
@@ -96,7 +97,7 @@ export const deleteBlog = asyncHandler( async(req, res) => {
         const publicId = blog.imageUrl.split('/').pop().split('.')[0];
         await cloudinary.uploader.destroy(`personal_web/${publicId}`);
     }
-    await blog.remove();
+    await blog.deleteOne();
 
     res.status(200).json({
         message: 'Blog berhasil dihapus'

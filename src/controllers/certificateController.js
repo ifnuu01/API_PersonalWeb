@@ -1,5 +1,6 @@
 import Certificate from "../models/Certificate.js";
 import { asyncHandler, AppError} from '../utils/errorHandler.js';
+import cloudinary from "../config/cloudinary.js";
 
 export const createCertificate = asyncHandler( async(req, res) => {
     const { title, description, link } = req.body;
@@ -74,7 +75,7 @@ export const deleteCertificate = asyncHandler( async(req, res) => {
         const publicId = certificate.imageUrl.split('/').pop().split('.')[0];
         await cloudinary.uploader.destroy(`personal-web/${publicId}`);
     }
-    await certificate.remove();
+    await certificate.deleteOne();
 
     res.status(200).json({
         message: 'Sertifikat berhasil dihapus'

@@ -1,6 +1,7 @@
 import Project from "../models/Project.js";
 import { asyncHandler, AppError} from '../utils/errorHandler.js';
 import Category from '../models/Category.js';
+import cloudinary from "../config/cloudinary.js";
 
 export const createProject = asyncHandler( async(req, res) => {
     const { title, description, linkIcon, linkUrl, techIcons, category } = req.body;
@@ -97,7 +98,7 @@ export const deleteProject = asyncHandler( async(req, res) => {
         const oldPublicId = project.imageSrc.split('/').pop().split('.')[0];
         await cloudinary.uploader.destroy(`personal-web/${oldPublicId}`);
     }
-    await project.remove();
+    await project.deleteOne();
 
     res.status(200).json({
         message: 'Project berhasil dihapus'

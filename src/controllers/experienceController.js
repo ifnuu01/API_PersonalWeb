@@ -60,7 +60,7 @@ export const deleteExperience = asyncHandler( async ( req, res) => {
     if (!experience) {
         throw new AppError(404, 'Experience tidak ditemukan');
     }
-    await experience.remove();
+    await experience.deleteOne();
 
     res.status(200).json({
         message: 'Experience berhasil dihapus'
