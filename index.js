@@ -10,6 +10,10 @@ import experienceRoute from './src/routes/experienceRoute.js';
 import blogRoute from './src/routes/blogRoute.js';
 import projectRoute from './src/routes/projectRoute.js';
 import certificateRoute from './src/routes/certificateRoute.js';
+import authRoute from './src/routes/authRoute.js';
+
+// validate
+import { errorHandler } from './src/utils/errorHandler.js';
 
 dotenv.config();
 
@@ -17,8 +21,8 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(cors());
-app.use(express.urlencoded({ extended: true, }));
-app.use(express.json({ extended: true, }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ extended: true, limit: '10mb' }));
 
 
 app.get('/', (req, res) => {
@@ -32,6 +36,7 @@ app.use('/api/experiences', experienceRoute);
 app.use('/api/blogs', blogRoute);
 app.use('/api/projects', projectRoute);
 app.use('/api/certificates', certificateRoute);
+app.use('/api/auth', authRoute);
 
 // 404
 app.use((req, res) => {
@@ -39,6 +44,7 @@ app.use((req, res) => {
         message: `Tidak ditemukan ${req.originalUrl} di server ini`
     });
 });
+app.use(errorHandler);
 
 connectDB().then(() => {
     app.listen(PORT, () => {
