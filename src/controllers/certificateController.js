@@ -3,7 +3,7 @@ import { asyncHandler, AppError} from '../utils/errorHandler.js';
 import cloudinary from "../config/cloudinary.js";
 
 export const createCertificate = asyncHandler( async(req, res) => {
-    const { title, description, link } = req.body;
+    const { title, description, link, institution } = req.body;
     let imageUrl = null;
     if (req.file && req.file.path) {
         imageUrl = req.file.path;
@@ -12,6 +12,7 @@ export const createCertificate = asyncHandler( async(req, res) => {
         imageUrl,
         title,
         description,
+        institution,
         link
     });
 
@@ -42,7 +43,7 @@ export const getCertificateById = asyncHandler( async(req, res) => {
 
 export const updateCertificate = asyncHandler( async(req, res) => {
     const { id } = req.params;
-    const { title, description, link } = req.body;
+    const { title, description, link, institution } = req.body;
     const certificate = await Certificate.findById(id);
     if (!certificate) {
         throw new AppError(404, 'Sertifikat tidak ditemukan');
@@ -57,6 +58,7 @@ export const updateCertificate = asyncHandler( async(req, res) => {
     certificate.title = title;
     certificate.description = description;
     certificate.link = link;
+    certificate.institution = institution;
     await certificate.save();
 
     res.status(200).json({

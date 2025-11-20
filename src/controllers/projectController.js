@@ -33,8 +33,7 @@ export const createProject = asyncHandler( async(req, res) => {
 });
 
 export const getAllProjects = asyncHandler( async(req, res) => {
-    const projects = await Project.find().populate('category');
-
+    const projects = await Project.find().sort('-updatedAt').populate('category');
     res.status(200).json({
         message: 'Berhasil mendapatkan semua project',
         data: projects

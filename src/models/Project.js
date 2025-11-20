@@ -39,7 +39,7 @@ const projectSchema = new mongoose.Schema({
         ref: 'Category',
         required: true
     }
-});
+},{ timestamps: true });
 
 const Project = mongoose.model('Project', projectSchema);
 export default Project;

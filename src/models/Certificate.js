@@ -10,6 +10,10 @@ const certificateSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    institution : {
+        type: String,
+        required: true
+    },
     description: {
         type: String,
         required: true

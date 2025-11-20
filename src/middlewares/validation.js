@@ -67,6 +67,9 @@ export const validateCertificate = [
     body('description')
         .notEmpty().withMessage('Deskripsi sertifikat harus diisi').bail()
         .isLength({ min: 10 }).withMessage('Deskripsi sertifikat harus terdiri dari minimal 10 karakter').bail(),
+    body('institution')
+        .notEmpty().withMessage('Institusi sertifikat harus diisi').bail()
+        .isLength({ min: 2 }).withMessage('Institusi sertifikat harus terdiri dari minimal 2 karakter').bail(),
 ];
 
 export const validateBlog = [

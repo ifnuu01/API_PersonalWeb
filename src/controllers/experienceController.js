@@ -12,7 +12,8 @@ export const createExperience = asyncHandler( async ( req, res) => {
 });
 
 export const getAllExperiences = asyncHandler( async ( req, res) => {
-    const experiences = await Experience.find();
+    const sortOrder = req.query.sort === 'asc' ? 1 : -1;
+    const experiences = await Experience.find().sort({ startDate: sortOrder });
     
     res.status(200).json({
         message: 'Berhasil mendapatkan semua experience',
